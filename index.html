@@ -3,30 +3,409 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sebastian Bělaška | Portfolio</title>
+  <title>Sebastian Bělaška | Frontend Developer & UI Designer</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { background: #0b0c10; color: #fff; font-family: sans-serif; padding: 2rem; text-align: center; }
-    h1 { margin-bottom: 1rem; color: #6366f1; }
-    p { color: #aaa; margin-bottom: 2rem; }
-    .card { background: #12141a; padding: 1.5rem; border-radius: 8px; border: 1px solid #333; max-width: 400px; margin: 0 auto; }
-    .card h3 { margin-bottom: 0.5rem; }
-    .card a { display: inline-block; margin-top: 1rem; color: #d4af37; font-weight: bold; text-decoration: none; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: #090a0f;
+      color: #e2e8f0;
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Space Grotesk', sans-serif;
+      color: #ffffff;
+    }
+
+    .accent-text {
+      background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* NAVIGACE */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 8%;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      background: rgba(9, 10, 15, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .logo {
+      font-size: 1.2rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+    }
+
+    .nav-links a {
+      color: #94a3b8;
+      text-decoration: none;
+      margin-left: 2rem;
+      font-size: 0.9rem;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: #ffffff;
+    }
+
+    /* HERO SEKCE */
+    .hero {
+      min-height: 90vh;
+      display: flex;
+      align-items: center;
+      padding: 8rem 8% 4rem;
+      position: relative;
+    }
+
+    .hero-glow {
+      position: absolute;
+      top: 20%;
+      left: 15%;
+      width: 350px;
+      height: 350px;
+      background: rgba(99, 102, 241, 0.15);
+      filter: blur(140px);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .hero-content {
+      max-width: 800px;
+      z-index: 2;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 0.4rem 1rem;
+      background: rgba(99, 102, 241, 0.1);
+      border: 1px solid rgba(99, 102, 241, 0.25);
+      border-radius: 50px;
+      color: #818cf8;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero h1 {
+      font-size: 3.5rem;
+      line-height: 1.15;
+      margin-bottom: 1.5rem;
+      font-weight: 800;
+    }
+
+    .hero p {
+      font-size: 1.15rem;
+      color: #94a3b8;
+      margin-bottom: 2.5rem;
+      max-width: 600px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 0.9rem 2rem;
+      border-radius: 8px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+      color: #fff;
+      box-shadow: 0 4px 20px rgba(99, 102, 241, 0.3);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 25px rgba(99, 102, 241, 0.5);
+    }
+
+    /* PROJEKTY */
+    .projects {
+      padding: 6rem 8%;
+    }
+
+    .section-header {
+      margin-bottom: 3.5rem;
+    }
+
+    .section-header h2 {
+      font-size: 2.2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .section-header p {
+      color: #64748b;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2.5rem;
+    }
+
+    .project-card {
+      background: #11131f;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .project-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(99, 102, 241, 0.3);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    .project-img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+    }
+
+    .project-info {
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .project-tags {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .tag {
+      font-size: 0.75rem;
+      background: rgba(99, 102, 241, 0.1);
+      border: 1px solid rgba(99, 102, 241, 0.2);
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      color: #818cf8;
+      font-weight: 600;
+    }
+
+    .project-info h3 {
+      font-size: 1.4rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .project-info p {
+      color: #94a3b8;
+      font-size: 0.95rem;
+      margin-bottom: 1.5rem;
+      flex-grow: 1;
+    }
+
+    .project-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #d4af37;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.9rem;
+      transition: gap 0.2s;
+    }
+
+    .project-link:hover {
+      gap: 0.8rem;
+    }
+
+    /* DOVEDNOSTI */
+    .skills {
+      padding: 6rem 8%;
+      background: #0d0f17;
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .skill-box {
+      background: #151824;
+      padding: 1.5rem;
+      border-radius: 12px;
+      text-align: center;
+      border: 1px solid rgba(255, 255, 255, 0.03);
+    }
+
+    .skill-box h4 {
+      font-size: 1.1rem;
+      margin-bottom: 0.3rem;
+      color: #fff;
+    }
+
+    .skill-box span {
+      font-size: 0.8rem;
+      color: #64748b;
+    }
+
+    /* KONTAKT */
+    .contact {
+      padding: 6rem 8%;
+      text-align: center;
+    }
+
+    .contact h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .contact p {
+      color: #94a3b8;
+      max-width: 500px;
+      margin: 0 auto 2rem;
+    }
+
+    /* PATIČKA */
+    footer {
+      padding: 2rem 8%;
+      text-align: center;
+      color: #475569;
+      font-size: 0.85rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 2.4rem; }
+      .navbar { padding: 1rem 5%; }
+      .nav-links a { margin-left: 1rem; font-size: 0.85rem; }
+    }
   </style>
 </head>
 <body>
 
-  <h1>Ahoj, já jsem Sebastian Bělaška</h1>
-  <p>Tvořím moderní webové stránky.</p>
+  <!-- NAVIGACE -->
+  <header class="navbar">
+    <div class="logo">SEBASTIAN <span class="accent-text">BĚLAŠKA</span></div>
+    <nav class="nav-links">
+      <a href="#projekty">Projekty</a>
+      <a href="#dovednosti">Dovednosti</a>
+      <a href="#kontakt">Kontakt</a>
+    </nav>
+  </header>
 
-  <h2>Moje Projekty</h2>
-  <br>
+  <!-- HERO SEKCE -->
+  <section class="hero">
+    <div class="hero-glow"></div>
+    <div class="hero-content">
+      <span class="badge">Dostupný pro zakázky & spolupráci</span>
+      <h1>Tvořím moderní & <span class="accent-text">působivé webové stránky.</span></h1>
+      <p>Jsem frontend vývojář a designer. Pomáhám firmám a živnostníkům získat více zákazníků díky rychlému, modernímu a skvěle vypadajícímu webu.</p>
+      <a href="#projekty" class="btn btn-primary">Prohlédnout projekty &rarr;</a>
+    </div>
+  </section>
 
-  <div class="card">
-    <h3>APEX DETAILING</h3>
-    <p>Web pro prémiové auto-detailingové studio.</p>
-    <a href="https://sebastianbelaska.github.io/apex-detailing/" target="_blank">Otevřít web &rarr;</a>
-  </div>
+  <!-- PROJEKTY -->
+  <section id="projekty" class="projects">
+    <div class="section-header">
+      <h2>Moje práce & projekty</h2>
+      <p>Ukázka moderních webů vytvořených na míru.</p>
+    </div>
+
+    <div class="projects-grid">
+      
+      <!-- APEX DETAILING -->
+      <div class="project-card">
+        <img src="https://images.unsplash.com/photo-1617814076367-b759c7d7e738?q=80&w=800" alt="Apex Detailing" class="project-img">
+        <div class="project-info">
+          <div class="project-tags">
+            <span class="tag">HTML5 / CSS3</span>
+            <span class="tag">Dark Mode</span>
+            <span class="tag">UI/UX</span>
+          </div>
+          <h3>APEX DETAILING</h3>
+          <p>Luxusní reprezentativní web pro prémiové auto-detailingové studio s kompletním přehledem služeb a poptávkovým formulářem.</p>
+          <a href="https://sebastianbelaska.github.io/apex-detailing/" target="_blank" class="project-link">Otevřít živý web &rarr;</a>
+        </div>
+      </div>
+
+      <!-- MÍSTO PRO DRUHÝ PROJEKT -->
+      <div class="project-card">
+        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=800" alt="Další projekt" class="project-img">
+        <div class="project-info">
+          <div class="project-tags">
+            <span class="tag">V přípravě</span>
+          </div>
+          <h3>Příští projekt</h3>
+          <p>Zde bude tvůj další projekt (např. e-shop, web pro restauraci nebo osobního trenéra).</p>
+          <span style="color: #64748b; font-size: 0.9rem;">Již brzy...</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- DOVEDNOSTI -->
+  <section id="dovednosti" class="skills">
+    <div class="section-header">
+      <h2>Technologie & Dovednosti</h2>
+      <p>Nástroje a znalosti, které používám k tvorbě webů.</p>
+    </div>
+
+    <div class="skills-grid">
+      <div class="skill-box">
+        <h4>HTML5 & CSS3</h4>
+        <span>Čistý kód & moderní design</span>
+      </div>
+      <div class="skill-box">
+        <h4>Responsive Design</h4>
+        <span>Perfektní vzhled na mobilu</span>
+      </div>
+      <div class="skill-box">
+        <h4>UI / UX Design</h4>
+        <span>Přehledné a funkční rozvržení</span>
+      </div>
+      <div class="skill-box">
+        <h4>Git & GitHub</h4>
+        <span>Správa kódu & hosting</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- KONTAKT -->
+  <section id="kontakt" class="contact">
+    <h2>Chcete nový web <span class="accent-text">pro vaši firmu?</span></h2>
+    <p>Ozvěte se mi a společně vymyslíme řešení na míru pro váš projekt.</p>
+    <a href="mailto:sebastianbelaska@seznam.cz" class="btn btn-primary">Napsat e-mail &rarr;</a>
+  </section>
+
+  <!-- PATIČKA -->
+  <footer>
+    <p>&copy; 2026 Sebastian Bělaška. Všechna práva vyhrazena.</p>
+  </footer>
 
 </body>
 </html>
